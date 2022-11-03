@@ -1,0 +1,22 @@
+.menuBlock {
+  max-width: 48rem;
+  padding: 0 4rem 6rem;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.icon {
+  margin: 8rem 0;
+}
+
+.title {
+  margin: 4.4rem 0;
+}

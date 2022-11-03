@@ -1,0 +1,25 @@
+.roundedBox {
+  --box-outline-color: var(--black);
+
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 0.3rem solid var(--box-outline-color);
+  border-radius: 2rem;
+  box-shadow: 0 1rem 0 0 var(--box-outline-color);
+}
+
+.large {
+  border-radius: 4rem;
+}
+
+.isHoverable {
+  text-decoration: none;
+  cursor: pointer;
+
+  &:is(:focus, :hover) {
+    --box-outline-color: var(--hover-color);
+  }
+}

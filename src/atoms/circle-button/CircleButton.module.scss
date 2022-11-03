@@ -1,0 +1,13 @@
+.circleButton{
+  display: inline-block;
+
+  &:is(:hover, :focus) {
+    .circleButtonSVGShadow {
+      fill: var(--hover-color);
+    }
+  }
+}
+
+.circleButtonSVG {
+  display: block;
+}

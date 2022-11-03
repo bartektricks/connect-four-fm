@@ -1,0 +1,45 @@
+@font-face {
+  font-family: SpaceGrotesk;
+  src: url('/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 500 700;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+:root {
+  --black: #000;
+  --dark-purple: #5C2DD5;
+  --purple: #7945FF;
+  --pink: #FD6687;
+  --yellow: #FFCE67;
+  --white: #FFF;
+
+  --text-color: var(--black);
+  --background-color: var(--white);
+  --hover-color: var(--dark-purple);
+
+  font-family: SpaceGrotesk, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+
+  color-scheme: light dark;
+  color: var(--text-color);
+  background-color: var(--background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+  font-weight: 500;
+}
