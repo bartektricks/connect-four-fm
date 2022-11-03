@@ -60,10 +60,12 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
           />
           <foreignObject x="-3" y="41" width="100%" height="100%">
             <div className={styles.inner}>
-              <Text type="xsmall">{`Player ${
-                isPlayers2Turn ? 2 : 1
-              }'s turn`}</Text>
-              <Text type="large" isLowerCase>{`${timeLeft || 0}s`}</Text>
+              <Text type="xsmall">
+                Player {isPlayers2Turn ? 2 : 1}&apos;s turn
+              </Text>
+              <Text type="large" isLowerCase>
+                {timeLeft || 0}s
+              </Text>
             </div>
           </foreignObject>
         </g>

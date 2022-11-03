@@ -1,10 +1,13 @@
 .smallButton {
+  --text-color: var(--white);
+
   display: inline-block;
   padding: 1rem 2rem;
   background-color: var(--purple);
-  color: var(--white);
+  border: 1px transparent;
   border-radius: 2rem;
   text-decoration: none;
+  cursor: pointer;
 
   &:is(:focus,:hover) {
     background-color: var(--pink);

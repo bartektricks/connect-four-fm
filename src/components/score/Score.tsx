@@ -16,7 +16,9 @@ const Score = ({ score, isPlayer2 }: ScoreProps) => {
   return (
     <div className={`${sharedStyles.roundedBox} ${styles.score}`}>
       <Icon className={styles.icon} />
-      <Text tag="h2" type="small">{`Player ${isPlayer2 ? 2 : 1}`}</Text>
+      <Text tag="h2" type="small">
+        Player {isPlayer2 ? 2 : 1}
+      </Text>
       <Text tag="span" type="large">
         {score || 0}
       </Text>
