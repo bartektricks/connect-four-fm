@@ -1,11 +1,12 @@
-import type { PropsWithChildren } from "react";
+import type { ElementType, PropsWithChildren } from "react";
 
 import clsx from "clsx";
 import styles from "./Text.module.scss";
 
 type TextProps = {
-  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div";
+  tag?: ElementType;
   type?: "large" | "medium" | "small" | "xsmall";
+  isLowerCase?: boolean;
   className?: string;
 };
 
@@ -14,11 +15,13 @@ const Text = ({
   type = "xsmall",
   children,
   className,
+  isLowerCase = false,
 }: PropsWithChildren<TextProps>) => {
   const classes = clsx(
     {
       [styles.text]: true,
       [styles[type]]: type !== "xsmall",
+      [styles.isLowerCase]: isLowerCase,
     },
     className
   );

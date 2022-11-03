@@ -1,7 +1,13 @@
 .text {
   margin: 0;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.isLowerCase {
+  text-transform: none;
 }
 
 .large {

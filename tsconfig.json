@@ -6,6 +6,9 @@
       "atoms": [
         "atoms/*"
       ],
+      "components": [
+        "components/*"
+      ],
       "styles": [
         "styles/*"
       ],

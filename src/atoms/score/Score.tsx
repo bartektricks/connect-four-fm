@@ -1,5 +1,5 @@
-import Player1 from "assets/player-one.svg";
-import Player2 from "assets/player-two.svg";
+import { ReactComponent as Player1 } from "assets/player-one.svg";
+import { ReactComponent as Player2 } from "assets/player-two.svg";
 import Text from "atoms/text/Text";
 
 import sharedStyles from "styles/roundedBox.module.scss";
