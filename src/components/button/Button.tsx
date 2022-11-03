@@ -9,7 +9,7 @@ import getTextAndBackgroundColor, {
   Background,
 } from "utils/getTextAndBackgroundColor";
 import roundedBoxStyles from "styles/roundedBox.module.scss";
-import Text from "atoms/text/Text";
+import Text from "components/text/Text";
 import styles from "./Button.module.scss";
 
 export type ButtonProps = {

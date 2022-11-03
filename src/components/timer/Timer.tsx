@@ -1,4 +1,4 @@
-import Text from "atoms/text/Text";
+import Text from "components/text/Text";
 import getPlayerBackgroundColor from "utils/getPlayerBackgroundColor";
 import styles from "./Timer.module.scss";
 

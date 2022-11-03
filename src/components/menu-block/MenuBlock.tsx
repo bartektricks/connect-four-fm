@@ -1,5 +1,5 @@
-import Button, { ButtonProps } from "atoms/button/Button";
-import Text from "atoms/text/Text";
+import Button, { ButtonProps } from "components/button/Button";
+import Text from "components/text/Text";
 import sharedStyles from "styles/roundedBox.module.scss";
 import styles from "./MenuBlock.module.scss";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";

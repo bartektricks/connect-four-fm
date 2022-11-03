@@ -3,9 +3,6 @@
     "types": ["vite/client"],
     "baseUrl": "./src",
     "paths": {
-      "atoms": [
-        "atoms/*"
-      ],
       "components": [
         "components/*"
       ],

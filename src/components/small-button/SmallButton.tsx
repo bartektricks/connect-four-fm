@@ -1,4 +1,4 @@
-import Text from "atoms/text/Text";
+import Text from "components/text/Text";
 import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 import styles from "./SmallButton.module.scss";
 
