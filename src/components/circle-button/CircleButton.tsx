@@ -1,11 +1,12 @@
 import type { ComponentPropsWithoutRef } from "react";
 import style from "./CircleButton.module.scss";
 
-const CircleButton = (
-  props: Omit<ComponentPropsWithoutRef<"button">, "className">
-) => {
+const CircleButton = (props: ComponentPropsWithoutRef<"button">) => {
   return (
-    <button {...props} className={style.circleButton}>
+    <button
+      {...props}
+      className={`${style.circleButton} ${props.className || ""}`}
+    >
       <svg
         className={style.circleButtonSVG}
         width="70px"

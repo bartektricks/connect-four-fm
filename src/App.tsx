@@ -1,10 +1,9 @@
-import WinBlock from "components/win-block/WinBlock";
-import Timer from "components/timer/Timer";
+import RulesBlock from "components/rules-block/RulesBlock";
 
 function App() {
   return (
     <div className="App">
-      <WinBlock />
+      <RulesBlock />
     </div>
   );
 }
