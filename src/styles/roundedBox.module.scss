@@ -1,3 +1,5 @@
+@use "../styles/variables.module.scss" as var;
+
 .roundedBox {
   --box-outline-color: var(--black);
 
@@ -7,12 +9,12 @@
   background-color: var(--background-color);
   color: var(--text-color);
   border: 0.3rem solid var(--box-outline-color);
-  border-radius: 2rem;
+  border-radius: var(--radius-sm);
   box-shadow: 0 1rem 0 0 var(--box-outline-color);
 }
 
 .large {
-  border-radius: 4rem;
+  border-radius: var(--radius-md);
 }
 
 .isHoverable {

@@ -1,12 +1,14 @@
 import CircleButton from "components/circle-button/CircleButton";
 import Text from "components/text/Text";
 import sharedStyles from "styles/roundedBox.module.scss";
+import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
 import styles from "./RulesBlock.module.scss";
 
 const RulesBlock = () => {
   return (
     <div
       className={`${sharedStyles.roundedBox} ${sharedStyles.large} ${styles.rulesBlock}`}
+      style={getTextAndBackgroundColor("white")}
     >
       <Text
         tag="h1"
