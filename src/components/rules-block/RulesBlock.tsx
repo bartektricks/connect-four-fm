@@ -38,7 +38,7 @@ const RulesBlock = () => {
           The starter of the previous game goes second on the next game.
         </Rule>
       </ol>
-      <CircleButton className={styles.button} />
+      <CircleButton to="/" className={styles.button} />
     </div>
   );
 };

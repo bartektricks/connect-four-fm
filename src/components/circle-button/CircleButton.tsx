@@ -1,9 +1,10 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { LinkProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./CircleButton.module.scss";
 
-const CircleButton = (props: ComponentPropsWithoutRef<"button">) => {
+const CircleButton = (props: LinkProps) => {
   return (
-    <button
+    <Link
       {...props}
       className={`${style.circleButton} ${props.className || ""}`}
     >
@@ -38,7 +39,7 @@ const CircleButton = (props: ComponentPropsWithoutRef<"button">) => {
           ></polyline>
         </g>
       </svg>
-    </button>
+    </Link>
   );
 };
 

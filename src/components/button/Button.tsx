@@ -1,9 +1,7 @@
+import type { CSSProperties } from "react";
+import type { LinkProps } from "react-router-dom";
 import clsx from "clsx";
-import type {
-  ComponentPropsWithoutRef,
-  CSSProperties,
-  ElementType,
-} from "react";
+import { Link } from "react-router-dom";
 
 import getTextAndBackgroundColor, {
   Background,
@@ -11,14 +9,15 @@ import getTextAndBackgroundColor, {
 import roundedBoxStyles from "styles/roundedBox.module.scss";
 import Text from "components/text/Text";
 import styles from "./Button.module.scss";
+import { SVG } from "utils/types";
 
 export type ButtonProps = {
   backgroundColor?: Background;
   style?: CSSProperties;
   isAlignedLeft?: boolean;
-  icon?: ElementType;
+  icon?: SVG;
   children: string;
-} & ComponentPropsWithoutRef<"button">;
+} & LinkProps;
 
 const Button = ({
   children,
@@ -41,12 +40,12 @@ const Button = ({
   };
 
   return (
-    <button {...props} className={classes} style={style}>
+    <Link {...props} className={classes} style={style}>
       <Text type="medium" tag="div">
         {children}
       </Text>
       {IconTag && <IconTag />}
-    </button>
+    </Link>
   );
 };
 

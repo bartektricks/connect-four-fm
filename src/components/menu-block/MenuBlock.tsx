@@ -3,12 +3,11 @@ import Text from "components/text/Text";
 import sharedStyles from "styles/roundedBox.module.scss";
 import styles from "./MenuBlock.module.scss";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
-import type { ElementType } from "react";
-import type { StrictUnion } from "utils/types";
+import type { StrictUnion, SVG } from "utils/types";
 
 type MenuBlockProps = {
   buttons: ButtonProps[];
-} & StrictUnion<{ title: string } | { icon: ElementType }>;
+} & StrictUnion<{ title: string } | { icon: SVG }>;
 
 const MenuBlock = ({ buttons, icon: Icon, title }: MenuBlockProps) => {
   return (
