@@ -1,31 +1,13 @@
-@use "../../styles/variables.module.scss" as var;
-
 .boardBackground {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
   background-color: var(--background-color);
 }
 
-.subBackground {
-  --subbg-radius: var(--radius-lg);
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 24rem;
-  background-color: var(--background-color);
-  border-top-right-radius: var(--subbg-radius);
-  border-top-left-radius: var(--subbg-radius);
-
-  @media (min-width: var.$desktop) {
-    --subbg-radius: var(--radius-md);
-
-    height: 20rem;
-  }
+.isAlignedTop {
+  align-items: flex-start;
 }

@@ -1,18 +1,29 @@
-import Text from "components/text/Text";
-import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
+import type { LinkProps } from "react-router-dom";
+import type { Background } from "utils/getTextAndBackgroundColor";
+import { Link } from "react-router-dom";
+import typographyStyles from "styles/typography.module.scss";
 import styles from "./SmallButton.module.scss";
+import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
+
+type SmallButtonTypes = {
+  backgroundColor?: Background;
+} & Omit<PropsWithChildren<LinkProps>, "className" | "style">;
 
 const SmallButton = ({
   children,
+  backgroundColor,
   ...props
-}: Omit<
-  PropsWithChildren<ComponentPropsWithoutRef<"button">>,
-  "className"
->) => {
+}: SmallButtonTypes) => {
+  const style = {
+    ...getTextAndBackgroundColor(backgroundColor || "purple"),
+    "--text-color": "var(--white)",
+  };
+
   return (
-    <button {...props} className={styles.smallButton}>
-      <Text type="xsmall">{children}</Text>
-    </button>
+    <Link {...props} className={styles.smallButton} style={style}>
+      <h2 className={typographyStyles.text}>{children}</h2>
+    </Link>
   );
 };
 

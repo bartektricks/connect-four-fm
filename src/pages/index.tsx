@@ -10,7 +10,7 @@ const Home = () => {
         icon={Logo}
         buttons={[
           {
-            to: "/start",
+            to: "/game",
             children: "Play vs player",
             icon: Icon,
             backgroundColor: "yellow",

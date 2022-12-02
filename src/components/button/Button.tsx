@@ -7,7 +7,7 @@ import getTextAndBackgroundColor, {
   Background,
 } from "utils/getTextAndBackgroundColor";
 import roundedBoxStyles from "styles/roundedBox.module.scss";
-import Text from "components/text/Text";
+import typographyStyles from "styles/typography.module.scss";
 import styles from "./Button.module.scss";
 import { SVG } from "utils/types";
 
@@ -41,9 +41,9 @@ const Button = ({
 
   return (
     <Link {...props} className={classes} style={style}>
-      <Text type="medium" tag="div">
+      <span className={`${typographyStyles.text} ${typographyStyles.medium}`}>
         {children}
-      </Text>
+      </span>
       {IconTag && <IconTag />}
     </Link>
   );

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 import type { Background } from "utils/getTextAndBackgroundColor";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
@@ -5,24 +6,25 @@ import styles from "./BoardBackground.module.scss";
 
 type BoardBackgroundProps = {
   backgroundColor?: Extract<Background, "dark-purple" | "purple">;
-  subBackgroundColor?: Extract<Background, "dark-purple" | "yellow" | "pink">;
+  isAlignedTop?: boolean;
 };
 
 const BoardBackground = ({
   children,
-  subBackgroundColor,
   backgroundColor,
+  isAlignedTop = false,
 }: PropsWithChildren<BoardBackgroundProps>) => {
   const backgroundStyles = getTextAndBackgroundColor(
     backgroundColor || "dark-purple"
   );
-  const subBackgroundStyles = subBackgroundColor
-    ? getTextAndBackgroundColor(subBackgroundColor)
-    : {};
+
+  const classes = clsx({
+    [styles.boardBackground]: true,
+    [styles.isAlignedTop]: !!isAlignedTop,
+  });
 
   return (
-    <section className={styles.boardBackground} style={backgroundStyles}>
-      <span className={styles.subBackground} style={subBackgroundStyles} />
+    <section className={classes} style={backgroundStyles}>
       {children}
     </section>
   );

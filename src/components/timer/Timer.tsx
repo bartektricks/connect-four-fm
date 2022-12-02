@@ -1,5 +1,5 @@
-import Text from "components/text/Text";
 import getPlayerBackgroundColor from "utils/getPlayerBackgroundColor";
+import typographyStyles from "styles/typography.module.scss";
 import styles from "./Timer.module.scss";
 
 type TimerProps = {
@@ -60,12 +60,16 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
           />
           <foreignObject x="-3" y="41" width="100%" height="100%">
             <div className={styles.inner}>
-              <Text type="xsmall">
+              <h2
+                className={typographyStyles.text}
+              >
                 Player {isPlayers2Turn ? 2 : 1}&apos;s turn
-              </Text>
-              <Text type="large" isLowerCase>
+              </h2>
+              <h2
+                className={`${typographyStyles.text} ${typographyStyles.large} ${styles.lowerCase}`}
+              >
                 {timeLeft || 0}s
-              </Text>
+              </h2>
             </div>
           </foreignObject>
         </g>

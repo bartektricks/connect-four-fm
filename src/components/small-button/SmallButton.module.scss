@@ -1,9 +1,7 @@
 .smallButton {
-  --text-color: var(--white);
-
   display: inline-block;
   padding: 1rem 2rem;
-  background-color: var(--purple);
+  background-color: var(--background-color);
   border: 1px transparent;
   border-radius: 2rem;
   text-decoration: none;

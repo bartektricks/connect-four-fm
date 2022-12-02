@@ -1,14 +1,75 @@
+@use "../../styles/variables.module.scss" as var;
+@use "../../styles/typography.module.scss" as text;
+
+$half-icon-width: 2.7rem;
+
 .score {
   position: relative;
-  display: inline-block;
   width: auto;
-  padding: 4.6rem 2.8rem 1.8rem;
+  padding: 1rem 3.6rem;
   text-align: center;
+  margin: 0 0 0 $half-icon-width;
+
+  @media (min-width: var.$tablet) {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1.4rem 2rem;
+    margin: 0 0 0 $half-icon-width;
+  }
+
+  @media (min-width: var.$desktop) {
+    display: inline-block;
+    padding: 4.6rem 2.8rem 1.8rem;
+    margin: 0;
+  }
+}
+
+.scoreRight {
+  flex-direction: row-reverse;
+  margin: 0 $half-icon-width 0 0;
+
+  @media (min-width: var.$tablet) {
+    margin: 0 $half-icon-width 0 0;
+  }
+
+  @media (min-width: var.$desktop) {
+    margin: 0;
+  }
 }
 
 .icon {
   position: absolute;
-  top: 0;
-  left: 50%;
+  top: 50%;
+  left: 0;
   transform: translate(-50%, -50%);
+
+  @media (min-width: var.$desktop) {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.iconRight {
+  right: 0;
+  left: auto;
+  transform: translate(50%, -50%);
+
+  @media (min-width: var.$desktop) {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.playerText {
+  @media (min-width: var.$tablet) {
+    @include text.small();
+  }
+}
+
+.scoreText {
+  @media (min-width: var.$tablet) {
+    @include text.large();
+  }
 }

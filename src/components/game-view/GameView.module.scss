@@ -1,0 +1,101 @@
+@use '../../styles/variables.module.scss' as var;
+
+.gameView {
+  position: relative;
+}
+
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 63.2rem;
+  margin: 3rem auto 5rem;
+
+  @media (min-width: var.$tablet) {
+    margin: 0 auto 3.8rem;
+  }
+
+  @media (min-width: var.$desktop) {
+    margin: 3rem auto 5.6rem;
+  }
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.boardScore {
+  display: grid;
+  grid-template-areas:
+    "score1 score2"
+    "board board";
+  gap: 5rem 2rem;
+  align-items: center;
+
+  @media (min-width: var.$tablet) {
+    gap: 2rem 3.2rem;
+  }
+
+  @media (min-width: var.$desktop) {
+    grid-template-areas: "score1 board score2";
+    grid-template-columns: auto auto auto;
+    gap: 6rem;
+  }
+}
+
+.player1Score {
+  grid-area: score1;
+}
+
+.player2Score {
+  grid-area: score2;
+}
+
+.boardWrapper {
+  position: relative;
+  grid-area: board;
+  isolation: isolate;
+}
+
+.board {
+  position: absolute;
+  inset: 0;
+}
+
+.bottomBlock {
+  --top-margin: 2.4rem;
+
+  position: absolute;
+  top: calc(100% - var(--top-margin));
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  @media (min-width: var.$tablet) {
+    --top-margin: 4.8rem;
+  }
+}
+
+.subBackground {
+  --subbg-radius: var(--radius-lg);
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24rem;
+  background-color: var(--background-color);
+  border-top-right-radius: var(--subbg-radius);
+  border-top-left-radius: var(--subbg-radius);
+
+  @media (min-width: var.$desktop) {
+    --subbg-radius: var(--radius-md);
+
+    height: 20rem;
+  }
+}

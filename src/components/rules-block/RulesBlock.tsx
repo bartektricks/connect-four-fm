@@ -1,32 +1,34 @@
 import CircleButton from "components/circle-button/CircleButton";
-import Text from "components/text/Text";
-import sharedStyles from "styles/roundedBox.module.scss";
+import typographyStyles from "styles/typography.module.scss";
+import roudedBoxStyles from "styles/roundedBox.module.scss";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
 import styles from "./RulesBlock.module.scss";
 
 const RulesBlock = () => {
   return (
     <div
-      className={`${sharedStyles.roundedBox} ${sharedStyles.large} ${styles.rulesBlock}`}
+      className={`${roudedBoxStyles.roundedBox} ${roudedBoxStyles.large} ${styles.rulesBlock}`}
       style={getTextAndBackgroundColor("white")}
     >
-      <Text
-        tag="h1"
-        type="large"
-        className={`${styles.title} ${styles.spacer}`}
+      <h1
+        className={`${typographyStyles.text} ${typographyStyles.large} ${styles.title} ${styles.spacer}`}
       >
         Rules
-      </Text>
-      <Text type="small" className={styles.coloredTitle}>
+      </h1>
+      <h2
+        className={`${typographyStyles.text} ${typographyStyles.small} ${styles.coloredTitle}`}
+      >
         Objective
-      </Text>
+      </h2>
       <p className={styles.spacer}>
         Be the first player to connect 4 of the same colored discs in a row
         (either vertically, horizontally, or diagonally).
       </p>
-      <Text type="small" className={styles.coloredTitle}>
+      <h2
+        className={`${typographyStyles.text} ${typographyStyles.small} ${styles.coloredTitle}`}
+      >
         How to play
-      </Text>
+      </h2>
       <ol className={styles.list}>
         <Rule>Red goes first in the first game.</Rule>
         <Rule>
