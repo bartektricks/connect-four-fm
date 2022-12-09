@@ -1,7 +1,7 @@
 import { useReducer } from "react";
 
-const COLUMN_COUNT = 7;
-const ROW_COUNT = 6;
+export const COLUMN_COUNT = 7;
+export const ROW_COUNT = 6;
 const BOARD = Array.from({ length: COLUMN_COUNT }).map(() =>
   Array.from({ length: ROW_COUNT }).map(() => 0)
 );

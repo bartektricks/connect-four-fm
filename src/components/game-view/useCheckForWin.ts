@@ -1,4 +1,4 @@
-import type { GameReducer } from "./useGameReducer";
+import { COLUMN_COUNT, GameReducer, ROW_COUNT } from "./useGameReducer";
 import { IS_FINISHED, NEXT_PLAYER } from "./useGameReducer";
 import { useEffect } from "react";
 
@@ -61,6 +61,10 @@ export default function useCheckForWin(
         }
       });
     });
+
+    if (state.movesCount === ROW_COUNT * COLUMN_COUNT && !hasWon) {
+      alert("I forgot to implement a no one won UI :)");
+    }
 
     dispatch({ type: !hasWon ? NEXT_PLAYER : IS_FINISHED });
   }, [state.movesCount]);
