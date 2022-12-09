@@ -13,8 +13,13 @@ import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
 import useResetMarkerOpacity from "./useResetMarkerOpacity";
 import { moveMarker } from "./gameViewUtils";
 import useSetMarkerPos from "./useSetMarkerPos";
-import useGameReducer, { ADD_TOKEN, RESTART_GAME } from "./useGameReducer";
+import useGameReducer, {
+  ADD_TOKEN,
+  NEXT_PLAYER,
+  RESTART_GAME,
+} from "./useGameReducer";
 import styles from "./GameView.module.scss";
+import { useEffect } from "react";
 
 const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
   e.preventDefault();
@@ -28,14 +33,77 @@ const GameView = () => {
   const subBackgroundColor = getTextAndBackgroundColor(
     state.isFinished
       ? state.isPlayers2Turn
-        ? "pink"
-        : "yellow"
+        ? "yellow"
+        : "pink"
       : "dark-purple"
   );
 
   useResetMarkerOpacity(markerRef);
 
   const setLastMarkerPos = useSetMarkerPos(markerRef);
+
+  useEffect(() => {
+    if (!state.movesCount) {
+      return;
+    }
+    // There's no chance to win in less than 7 moves.
+    if (state.movesCount < 7) {
+      dispatch({ type: NEXT_PLAYER });
+      return;
+    }
+
+    let hasWon = false;
+    const currentPlayer = state.isPlayers2Turn ? 2 : 1;
+
+    function getAdjacentTokens(
+      c: number,
+      r: number,
+      type: "row" | "column" | "diagonal" | "negative_diagonal",
+      currentPlayer: number
+    ) {
+      const adjacentTokens = [];
+
+      for (let i = 0; i < 4; i++) {
+        if (type === "row") {
+          adjacentTokens.push(state.board?.[c + i]?.[r]);
+        }
+
+        if (type === "column") {
+          adjacentTokens.push(state.board?.[c]?.[r + i]);
+        }
+
+        if (type === "diagonal") {
+          adjacentTokens.push(state.board?.[c + i]?.[r + i]);
+        }
+
+        if (type === "negative_diagonal") {
+          adjacentTokens.push(state.board?.[c - i]?.[r + i]);
+        }
+      }
+
+      return adjacentTokens.every((player) => player === currentPlayer);
+    }
+
+    state.board.forEach((column, c) => {
+      column.forEach((_, r) => {
+        if (
+          getAdjacentTokens(c, r, "row", currentPlayer) ||
+          getAdjacentTokens(c, r, "column", currentPlayer) ||
+          getAdjacentTokens(c, r, "diagonal", currentPlayer) ||
+          getAdjacentTokens(c, r, "negative_diagonal", currentPlayer)
+        ) {
+          hasWon = true;
+          return;
+        }
+      });
+    });
+
+    if (!hasWon) {
+      dispatch({ type: NEXT_PLAYER });
+    } else {
+      dispatch({ type: "is_finished" });
+    }
+  }, [state.movesCount]);
 
   return (
     <div className={styles.gameView}>
