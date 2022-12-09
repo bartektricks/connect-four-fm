@@ -1,4 +1,4 @@
-import { MarkerPos } from "./GameView";
+import { MarkerPos } from "./useSetMarkerPos";
 import { RefObject } from "react";
 
 export function moveMarker(

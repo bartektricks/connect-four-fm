@@ -1,71 +1,41 @@
-import { MouseEventHandler, useRef, useState } from "react";
+import { MouseEventHandler, useRef } from "react";
 import { Link } from "react-router-dom";
 import SmallButton from "components/small-button/SmallButton";
 import Score from "components/score/Score";
 import WinBlock from "components/win-block/WinBlock";
 import Timer from "components/timer/Timer";
 import Marker from "components/marker/Marker";
+import PlayerToken from "components/player-token/PlayerToken";
 import { ReactComponent as Logo } from "assets/logo.svg";
 import { ReactComponent as BoardWhite } from "assets/board-layer-white.svg";
 import { ReactComponent as BoardBlack } from "assets/board-layer-black.svg";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
-import styles from "./GameView.module.scss";
 import useResetMarkerOpacity from "./useResetMarkerOpacity";
 import { moveMarker } from "./gameViewUtils";
-import PlayerToken from "components/player-token/PlayerToken";
-import { useEffect } from "react";
-
-const COLUMN_COUNT = 7;
-const ROW_COUNT = 6;
-
-const BOARD = Array.from({ length: COLUMN_COUNT }).map(() =>
-  Array.from({ length: ROW_COUNT }).map(() => 0)
-);
-
-export type MarkerPos = {
-  top: string;
-  left: string;
-  translateX: string;
-};
+import useSetMarkerPos from "./useSetMarkerPos";
+import useGameReducer, { ADD_TOKEN, RESTART_GAME } from "./useGameReducer";
+import styles from "./GameView.module.scss";
 
 const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
   e.preventDefault();
   alert("MENU!");
 };
 
-// TODO Change to useReducer.
 const GameView = () => {
   const markerRef = useRef<SVGSVGElement>(null);
-  const [lastMarkerPos, setLastMarkerPos] = useState<MarkerPos>({
-    top: "0",
-    left: "50%",
-    translateX: "0",
-  });
-  const [isFinished, setIsFinished] = useState(false);
-  const [isPlayers2Turn, setIsPlayers2Turn] = useState(false);
-  const [board, setBoard] = useState(BOARD);
+  const [state, dispatch] = useGameReducer();
 
   const subBackgroundColor = getTextAndBackgroundColor(
-    isFinished ? (isPlayers2Turn ? "pink" : "yellow") : "dark-purple"
+    state.isFinished
+      ? state.isPlayers2Turn
+        ? "pink"
+        : "yellow"
+      : "dark-purple"
   );
 
   useResetMarkerOpacity(markerRef);
 
-  useEffect(() => {
-    if (!markerRef.current) {
-      return;
-    }
-
-    const { top, left, translateX } = lastMarkerPos;
-
-    if (top !== "0") {
-      markerRef.current.style.opacity = "1";
-    }
-
-    markerRef.current.style.top = `${top}`;
-    markerRef.current.style.transform = `translateX(${translateX})`;
-    markerRef.current.style.left = `${left}`;
-  });
+  const setLastMarkerPos = useSetMarkerPos(markerRef);
 
   return (
     <div className={styles.gameView}>
@@ -81,7 +51,13 @@ const GameView = () => {
         <Link to="/" className={styles.logo}>
           <Logo />
         </Link>
-        <SmallButton to="/game" backgroundColor="dark-purple">
+        <SmallButton
+          to="/game"
+          backgroundColor="dark-purple"
+          onClick={() => {
+            dispatch({ type: RESTART_GAME });
+          }}
+        >
           Restart
         </SmallButton>
       </nav>
@@ -99,61 +75,34 @@ const GameView = () => {
             style={{ width: "100%" }}
           />
           <Marker
-            isPlayers2Turn={isPlayers2Turn}
+            isPlayers2Turn={state.isPlayers2Turn}
             className={styles.marker}
             ref={markerRef}
           />
           <div className={styles.boardColumnsWrapper}>
-            {board.map((column, columnIndex) => (
+            {state.board.map((column, columnIndex) => (
               <button
                 key={columnIndex}
                 type="button"
                 className={styles.column}
-                onClick={(e) => {
-                  setBoard((prevBoard) => {
-                    const lastEmptyFieldIndex =
-                      prevBoard[columnIndex].lastIndexOf(0);
-
-                    if (lastEmptyFieldIndex === -1) {
-                      return prevBoard;
-                    }
-
-                    return prevBoard.map((column, stateColumnIndex) => {
-                      if (columnIndex !== stateColumnIndex) {
-                        return column;
-                      }
-
-                      const columnCopy = [...column];
-
-                      columnCopy[lastEmptyFieldIndex] = isPlayers2Turn ? 2 : 1;
-
-                      return columnCopy;
-                    });
-                  });
-
-                  setIsPlayers2Turn((prev) => !prev);
-                }}
+                onClick={() => dispatch({ type: ADD_TOKEN, columnIndex })}
                 onMouseEnter={(e) => moveMarker(e, markerRef, setLastMarkerPos)}
               >
-                {column.map((player, rowIndex) => {
-                  if (player === 0) {
-                    return null;
-                  }
-
-                  return (
+                {column.map((player, rowIndex) =>
+                  player === 0 ? null : (
                     <PlayerToken key={rowIndex} isPlayer2={player === 2} />
-                  );
-                })}
+                  )
+                )}
               </button>
             ))}
           </div>
         </div>
       </div>
       <div className={styles.bottomBlock}>
-        {isFinished ? (
-          <WinBlock hasPlayer2Won={isPlayers2Turn} />
+        {state.isFinished ? (
+          <WinBlock hasPlayer2Won={state.isPlayers2Turn} />
         ) : (
-          <Timer isPlayers2Turn={isPlayers2Turn} />
+          <Timer isPlayers2Turn={state.isPlayers2Turn} />
         )}
       </div>
     </div>
