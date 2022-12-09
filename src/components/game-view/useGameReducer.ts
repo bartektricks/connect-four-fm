@@ -80,3 +80,5 @@ function reducer(
 export default function useGameReducer() {
   return useReducer(reducer, INITIAL_STATE);
 }
+
+export type GameReducer = ReturnType<typeof useGameReducer>;

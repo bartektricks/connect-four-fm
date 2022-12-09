@@ -4,7 +4,13 @@ import sharedStyles from "styles/roundedBox.module.scss";
 import getTextAndBackgroundColor from "utils/getTextAndBackgroundColor";
 import styles from "./WinBlock.module.scss";
 
-const WinBlock = ({ hasPlayer2Won }: { hasPlayer2Won?: boolean }) => {
+const WinBlock = ({
+  hasPlayer2Won,
+  onClick,
+}: {
+  hasPlayer2Won?: boolean;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+}) => {
   return (
     <div
       className={`${sharedStyles.roundedBox} ${styles.winBlock}`}
@@ -16,7 +22,9 @@ const WinBlock = ({ hasPlayer2Won }: { hasPlayer2Won?: boolean }) => {
       <h2 className={`${typographyStyles.text} ${typographyStyles.large}`}>
         Wins
       </h2>
-      <SmallButton to="/game">Play again</SmallButton>
+      <SmallButton to="/game" onClick={onClick}>
+        Play again
+      </SmallButton>
     </div>
   );
 };
