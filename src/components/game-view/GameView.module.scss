@@ -66,6 +66,11 @@
   inset: 0;
 }
 
+.boardShadow {
+  position: relative;
+  z-index: -1;
+}
+
 .bottomBlock {
   --top-margin: 2.4rem;
 
@@ -105,13 +110,24 @@
   inset: 0 2.5%;
   display: flex;
   gap: 2.9%;
+  overflow: hidden;
+  border-radius: 2rem;
 }
 
 .column {
-  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 0 1 100%;
+  gap: 1.4%;
+  padding: 0 0 10%;
   background-color: transparent;
-  opacity: 0;
+  border: 0;
   cursor: pointer;
+
+  @media (min-width: var.$tablet) {
+    gap: 2.6%;
+  }
 }
 
 .marker {

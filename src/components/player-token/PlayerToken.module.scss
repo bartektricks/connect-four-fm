@@ -1,0 +1,30 @@
+@use '../../styles/variables.module.scss' as var;
+
+.token {
+  display: none;
+  width: 100%;
+  z-index: -1;
+  animation: show 500ms forwards ease-in-out;
+
+  @media (min-width: var.$tablet) {
+    display: block;
+  }
+}
+
+.small {
+  display: block;
+
+  @media (min-width: var.$tablet) {
+    display: none;
+  }
+}
+
+@keyframes show {
+  0% {
+    transform: translateY(-100vh);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
