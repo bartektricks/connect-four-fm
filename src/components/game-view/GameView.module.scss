@@ -99,3 +99,28 @@
     height: 20rem;
   }
 }
+
+.boardColumnsWrapper {
+  position: absolute;
+  inset: 0 2.5%;
+  display: flex;
+  gap: 2.9%;
+}
+
+.column {
+  flex: 1 1 100%;
+  background-color: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.marker {
+  display: none;
+  position: fixed;
+  opacity: 0;
+  transition: left .2s ease-in-out;
+
+  @media (min-width: var.$desktop) {
+    display: block;
+  }
+}
