@@ -1,14 +1,12 @@
+import { useGetGameContext } from "context/useGameContext";
 import { useEffect, useRef, useState } from "react";
-import { GameReducer, NEXT_PLAYER } from "./useGameReducer";
 
 const INITIAL_TIME = 30;
 
-export default function usePlayerTurnCountdown(
-  state: GameReducer[0],
-  dispatch: GameReducer[1]
-) {
-  const timerRef = useRef(0);
+export default function usePlayerTurnCountdown() {
+  const { state, setNextPlayer } = useGetGameContext();
   const [counter, setCounter] = useState(INITIAL_TIME);
+  const timerRef = useRef(0);
 
   useEffect(() => {
     timerRef.current = setTimeout(() => {
@@ -16,7 +14,7 @@ export default function usePlayerTurnCountdown(
     }, 1000);
 
     if (counter <= 0) {
-      dispatch({ type: NEXT_PLAYER });
+      setNextPlayer();
     }
 
     return () => {

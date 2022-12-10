@@ -1,6 +1,9 @@
-import { COLUMN_COUNT, GameReducer, ROW_COUNT } from "./useGameReducer";
-import { IS_FINISHED, NEXT_PLAYER } from "./useGameReducer";
 import { useEffect } from "react";
+import {
+  COLUMN_COUNT,
+  ROW_COUNT,
+  useGetGameContext,
+} from "context/useGameContext";
 
 const adjacentTypes = [
   "row",
@@ -43,17 +46,16 @@ function hasMatchingAdjacentNumbers(
   return adjacentTokens.every((number) => number === matchingNumber);
 }
 
-export default function useCheckForWin(
-  state: GameReducer[0],
-  dispatch: GameReducer[1]
-) {
+export default function useCheckForWin() {
+  const { state, setNextPlayer, setIsFinished } = useGetGameContext();
+
   useEffect(() => {
     if (!state.movesCount) {
       return;
     }
     // There's no chance to win in less than 5 moves.
     if (state.movesCount < 5) {
-      dispatch({ type: NEXT_PLAYER });
+      setNextPlayer();
       return;
     }
 
@@ -77,6 +79,6 @@ export default function useCheckForWin(
       alert("I forgot to implement a no one won UI :)");
     }
 
-    dispatch({ type: !hasWon ? NEXT_PLAYER : IS_FINISHED });
+    hasWon ? setIsFinished() : setNextPlayer();
   }, [state.movesCount]);
 }

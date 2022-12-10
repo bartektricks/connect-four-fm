@@ -1,15 +1,14 @@
 import GameView from "components/game-view/GameView";
 import BoardBackground from "components/board-background/BoardBackground";
+import { GameContextProvider } from "context/useGameContext";
 
 const Game = () => {
   return (
-    <BoardBackground
-      backgroundColor="purple"
-      subBackgroundColor="dark-purple"
-      isAlignedTop
-    >
-      <GameView />
-    </BoardBackground>
+    <GameContextProvider>
+      <BoardBackground backgroundColor="purple" isAlignedTop>
+        <GameView />
+      </BoardBackground>
+    </GameContextProvider>
   );
 };
 

@@ -1,4 +1,5 @@
-import { useReducer } from "react";
+import { useContext } from "react";
+import { createContext, useCallback, useReducer } from "react";
 
 export const COLUMN_COUNT = 7;
 export const ROW_COUNT = 6;
@@ -28,7 +29,7 @@ type NextPlayer = { type: typeof NEXT_PLAYER };
 
 type ActionType = AddToken | RestartGame | IsFinished | NextPlayer | NextMatch;
 
-function reducer(
+function gameReducer(
   state: typeof INITIAL_STATE,
   action: ActionType
 ): typeof INITIAL_STATE {
@@ -90,8 +91,51 @@ function reducer(
   }
 }
 
-export default function useGameReducer() {
-  return useReducer(reducer, INITIAL_STATE);
+function useManageGame() {
+  const [state, dispatch] = useReducer(gameReducer, INITIAL_STATE);
+
+  const setToken = useCallback((columnIndex: number) => {
+    dispatch({ type: ADD_TOKEN, columnIndex });
+  }, []);
+
+  const setNextPlayer = useCallback(() => {
+    dispatch({ type: NEXT_PLAYER });
+  }, []);
+
+  const setRestartGame = useCallback(() => {
+    dispatch({ type: RESTART_GAME });
+  }, []);
+
+  const setNextMatch = useCallback(() => {
+    dispatch({ type: NEXT_MATCH });
+  }, []);
+
+  const setIsFinished = useCallback(() => {
+    dispatch({ type: IS_FINISHED });
+  }, []);
+
+  return {
+    state,
+    setToken,
+    setNextPlayer,
+    setRestartGame,
+    setNextMatch,
+    setIsFinished,
+  };
 }
 
-export type GameReducer = ReturnType<typeof useGameReducer>;
+type UseManageGameResult = ReturnType<typeof useManageGame>;
+
+const GameContext = createContext<UseManageGameResult>(
+  {} as UseManageGameResult
+);
+
+export const GameContextProvider = ({ children }: React.PropsWithChildren) => {
+  return (
+    <GameContext.Provider value={useManageGame()}>
+      {children}
+    </GameContext.Provider>
+  );
+};
+
+export const useGetGameContext = () => useContext(GameContext);

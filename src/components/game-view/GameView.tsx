@@ -15,12 +15,8 @@ import { moveMarker } from "./gameViewUtils";
 import useSetMarkerPos from "./useSetMarkerPos";
 import useCheckForWin from "./useCheckForWin";
 import usePlayerTurnCountdown from "./usePlayerTurnCountdown";
-import useGameReducer, {
-  ADD_TOKEN,
-  NEXT_MATCH,
-  RESTART_GAME,
-} from "./useGameReducer";
 import styles from "./GameView.module.scss";
+import { useGetGameContext } from "context/useGameContext";
 
 const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
   e.preventDefault();
@@ -29,7 +25,7 @@ const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
 
 const GameView = () => {
   const markerRef = useRef<SVGSVGElement>(null);
-  const [state, dispatch] = useGameReducer();
+  const { state, setRestartGame, setToken, setNextMatch } = useGetGameContext();
 
   const subBackgroundColor = getTextAndBackgroundColor(
     state.isFinished
@@ -39,10 +35,10 @@ const GameView = () => {
       : "dark-purple"
   );
 
-  useCheckForWin(state, dispatch);
+  useCheckForWin();
   useResetMarkerOpacity(markerRef);
 
-  const timeLeft = usePlayerTurnCountdown(state, dispatch);
+  const timeLeft = usePlayerTurnCountdown();
   const setLastMarkerPos = useSetMarkerPos(markerRef);
 
   return (
@@ -62,9 +58,7 @@ const GameView = () => {
         <SmallButton
           to="/game"
           backgroundColor="dark-purple"
-          onClick={() => {
-            dispatch({ type: RESTART_GAME });
-          }}
+          onClick={setRestartGame}
         >
           Restart
         </SmallButton>
@@ -97,7 +91,7 @@ const GameView = () => {
                 key={columnIndex}
                 type="button"
                 className={styles.column}
-                onClick={() => dispatch({ type: ADD_TOKEN, columnIndex })}
+                onClick={() => setToken(columnIndex)}
                 onMouseEnter={(e) => moveMarker(e, markerRef, setLastMarkerPos)}
               >
                 {column.map((player, rowIndex) =>
@@ -114,9 +108,7 @@ const GameView = () => {
         {state.isFinished ? (
           <WinBlock
             hasPlayer2Won={state.isPlayers2Turn}
-            onClick={() => {
-              dispatch({ type: NEXT_MATCH });
-            }}
+            onClick={setNextMatch}
           />
         ) : (
           <Timer isPlayers2Turn={state.isPlayers2Turn} timeLeft={timeLeft} />
