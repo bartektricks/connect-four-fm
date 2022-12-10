@@ -3,12 +3,16 @@ import { useEffect, useRef, useState } from "react";
 
 const INITIAL_TIME = 30;
 
-export default function usePlayerTurnCountdown() {
+export default function usePlayerTurnCountdown(isPaused: boolean) {
   const { state, setNextPlayer } = useGetGameContext();
   const [counter, setCounter] = useState(INITIAL_TIME);
   const timerRef = useRef(0);
 
   useEffect(() => {
+    if (isPaused) {
+      return;
+    }
+
     timerRef.current = setTimeout(() => {
       setCounter((prevCounter) => prevCounter - 1);
     }, 1000);
@@ -20,7 +24,7 @@ export default function usePlayerTurnCountdown() {
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, [counter, state.isFinished]);
+  }, [counter, state.isFinished, isPaused]);
 
   useEffect(() => {
     if (state.isFinished && timerRef.current) {

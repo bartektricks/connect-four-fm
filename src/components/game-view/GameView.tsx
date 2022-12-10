@@ -5,6 +5,7 @@ import Score from "components/score/Score";
 import WinBlock from "components/win-block/WinBlock";
 import Timer from "components/timer/Timer";
 import Marker from "components/marker/Marker";
+import GameModal from "components/game-modal/GameModal";
 import PlayerToken from "components/player-token/PlayerToken";
 import { ReactComponent as Logo } from "assets/logo.svg";
 import { ReactComponent as BoardWhite } from "assets/board-layer-white.svg";
@@ -17,15 +18,17 @@ import useCheckForWin from "./useCheckForWin";
 import usePlayerTurnCountdown from "./usePlayerTurnCountdown";
 import styles from "./GameView.module.scss";
 import { useGetGameContext } from "context/useGameContext";
-
-const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
-  e.preventDefault();
-  alert("MENU!");
-};
+import { useState } from "react";
 
 const GameView = () => {
   const markerRef = useRef<SVGSVGElement>(null);
+  const [showModal, setShowModal] = useState(false);
   const { state, setRestartGame, setToken, setNextMatch } = useGetGameContext();
+
+  const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
 
   const subBackgroundColor = getTextAndBackgroundColor(
     state.isFinished
@@ -38,11 +41,12 @@ const GameView = () => {
   useCheckForWin();
   useResetMarkerOpacity(markerRef);
 
-  const timeLeft = usePlayerTurnCountdown();
+  const timeLeft = usePlayerTurnCountdown(showModal);
   const setLastMarkerPos = useSetMarkerPos(markerRef);
 
   return (
     <div className={styles.gameView}>
+      <GameModal isOpen={showModal} handleSetIsOpen={setShowModal} />
       <span className={styles.subBackground} style={subBackgroundColor} />
       <nav className={styles.header}>
         <SmallButton
