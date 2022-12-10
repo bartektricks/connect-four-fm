@@ -2,6 +2,47 @@ import { COLUMN_COUNT, GameReducer, ROW_COUNT } from "./useGameReducer";
 import { IS_FINISHED, NEXT_PLAYER } from "./useGameReducer";
 import { useEffect } from "react";
 
+const adjacentTypes = [
+  "row",
+  "column",
+  "diagonal",
+  "negative_diagonal",
+] as const;
+
+function hasMatchingAdjacentNumbers(
+  col: number,
+  row: number,
+  type: typeof adjacentTypes[number],
+  matchingNumber: number,
+  arr: number[][]
+) {
+  const adjacentTokens = [];
+
+  for (let i = 0; i < 4; i++) {
+    let item: number | undefined;
+
+    if (type === "row") {
+      item = arr?.[col + i]?.[row];
+    }
+
+    if (type === "column") {
+      item = arr?.[col]?.[row + i];
+    }
+
+    if (type === "diagonal") {
+      item = arr?.[col + i]?.[row + i];
+    }
+
+    if (type === "negative_diagonal") {
+      item = arr?.[col - i]?.[row + i];
+    }
+
+    adjacentTokens.push(item);
+  }
+
+  return adjacentTokens.every((number) => number === matchingNumber);
+}
+
 export default function useCheckForWin(
   state: GameReducer[0],
   dispatch: GameReducer[1]
@@ -19,42 +60,12 @@ export default function useCheckForWin(
     let hasWon = false;
     const currentPlayer = state.isPlayers2Turn ? 2 : 1;
 
-    function getAdjacentTokens(
-      c: number,
-      r: number,
-      type: "row" | "column" | "diagonal" | "negative_diagonal",
-      currentPlayer: number
-    ) {
-      const adjacentTokens = [];
-
-      for (let i = 0; i < 4; i++) {
-        if (type === "row") {
-          adjacentTokens.push(state.board?.[c + i]?.[r]);
-        }
-
-        if (type === "column") {
-          adjacentTokens.push(state.board?.[c]?.[r + i]);
-        }
-
-        if (type === "diagonal") {
-          adjacentTokens.push(state.board?.[c + i]?.[r + i]);
-        }
-
-        if (type === "negative_diagonal") {
-          adjacentTokens.push(state.board?.[c - i]?.[r + i]);
-        }
-      }
-
-      return adjacentTokens.every((player) => player === currentPlayer);
-    }
-
     state.board.forEach((column, c) => {
       column.forEach((_, r) => {
         if (
-          getAdjacentTokens(c, r, "row", currentPlayer) ||
-          getAdjacentTokens(c, r, "column", currentPlayer) ||
-          getAdjacentTokens(c, r, "diagonal", currentPlayer) ||
-          getAdjacentTokens(c, r, "negative_diagonal", currentPlayer)
+          adjacentTypes.find((type) =>
+            hasMatchingAdjacentNumbers(c, r, type, currentPlayer, state.board)
+          )
         ) {
           hasWon = true;
           return;
@@ -62,7 +73,7 @@ export default function useCheckForWin(
       });
     });
 
-    if (state.movesCount === ROW_COUNT * COLUMN_COUNT && !hasWon) {
+    if (state.movesCount >= ROW_COUNT * COLUMN_COUNT && !hasWon) {
       alert("I forgot to implement a no one won UI :)");
     }
 
