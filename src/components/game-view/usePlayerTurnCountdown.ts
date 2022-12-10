@@ -24,7 +24,7 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, [counter, state.isFinished, isPaused]);
+  }, [counter, isPaused]);
 
   useEffect(() => {
     if (state.isFinished && timerRef.current) {
