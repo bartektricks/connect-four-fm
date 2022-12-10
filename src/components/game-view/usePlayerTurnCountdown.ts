@@ -13,11 +13,6 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
       return;
     }
 
-    if (state.isFinished && timerRef.current) {
-      clearTimeout(timerRef.current);
-      return;
-    }
-
     timerRef.current = setTimeout(() => {
       setCounter((prevCounter) => prevCounter - 1);
     }, 1000);
@@ -29,11 +24,11 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, [counter, isPaused, state.isFinished]);
+  }, [counter, isPaused]);
 
   useEffect(() => {
     setCounter(INITIAL_TIME);
-  }, [state.isPlayers2Turn]);
+  }, [state.isPlayers2Turn, state.isFinished]);
 
   return counter;
 }
