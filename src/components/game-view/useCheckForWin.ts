@@ -51,8 +51,8 @@ export default function useCheckForWin(
     if (!state.movesCount) {
       return;
     }
-    // There's no chance to win in less than 7 moves.
-    if (state.movesCount < 7) {
+    // There's no chance to win in less than 5 moves.
+    if (state.movesCount < 5) {
       dispatch({ type: NEXT_PLAYER });
       return;
     }

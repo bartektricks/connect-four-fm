@@ -14,7 +14,12 @@ import useResetMarkerOpacity from "./useResetMarkerOpacity";
 import { moveMarker } from "./gameViewUtils";
 import useSetMarkerPos from "./useSetMarkerPos";
 import useCheckForWin from "./useCheckForWin";
-import useGameReducer, { ADD_TOKEN, RESTART_GAME } from "./useGameReducer";
+import usePlayerTurnCountdown from "./usePlayerTurnCountdown";
+import useGameReducer, {
+  ADD_TOKEN,
+  NEXT_MATCH,
+  RESTART_GAME,
+} from "./useGameReducer";
 import styles from "./GameView.module.scss";
 
 const handleShowMenu: MouseEventHandler<HTMLAnchorElement> = (e) => {
@@ -37,6 +42,7 @@ const GameView = () => {
   useCheckForWin(state, dispatch);
   useResetMarkerOpacity(markerRef);
 
+  const timeLeft = usePlayerTurnCountdown(state, dispatch);
   const setLastMarkerPos = useSetMarkerPos(markerRef);
 
   return (
@@ -65,10 +71,14 @@ const GameView = () => {
       </nav>
       <div className={styles.boardScore}>
         <div>
-          <Score score={0} className={styles.player1Score} />
+          <Score score={state.score[0]} className={styles.player1Score} />
         </div>
         <div>
-          <Score score={0} className={styles.player2Score} isPlayer2 />
+          <Score
+            score={state.score[1]}
+            className={styles.player2Score}
+            isPlayer2
+          />
         </div>
         <div className={styles.boardWrapper}>
           <BoardWhite className={styles.board} style={{ width: "100%" }} />
@@ -105,11 +115,11 @@ const GameView = () => {
           <WinBlock
             hasPlayer2Won={state.isPlayers2Turn}
             onClick={() => {
-              dispatch({ type: RESTART_GAME });
+              dispatch({ type: NEXT_MATCH });
             }}
           />
         ) : (
-          <Timer isPlayers2Turn={state.isPlayers2Turn} />
+          <Timer isPlayers2Turn={state.isPlayers2Turn} timeLeft={timeLeft} />
         )}
       </div>
     </div>

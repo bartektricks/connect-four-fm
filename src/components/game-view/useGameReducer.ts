@@ -9,22 +9,24 @@ const BOARD = Array.from({ length: COLUMN_COUNT }).map(() =>
 export const ADD_TOKEN = "add_token";
 export const NEXT_PLAYER = "next_player";
 export const RESTART_GAME = "restart_game";
+export const NEXT_MATCH = "next_match";
 export const IS_FINISHED = "is_finished";
 
 const INITIAL_STATE = {
   isFinished: false,
   isPlayers2Turn: false,
-  lastTokenAdded: 0,
   board: BOARD,
   movesCount: 0,
+  score: [0, 0],
 };
 
 type AddToken = { type: typeof ADD_TOKEN; columnIndex: number };
 type RestartGame = { type: typeof RESTART_GAME };
+type NextMatch = { type: typeof NEXT_MATCH };
 type IsFinished = { type: typeof IS_FINISHED };
 type NextPlayer = { type: typeof NEXT_PLAYER };
 
-type ActionType = AddToken | RestartGame | IsFinished | NextPlayer;
+type ActionType = AddToken | RestartGame | IsFinished | NextPlayer | NextMatch;
 
 function reducer(
   state: typeof INITIAL_STATE,
@@ -36,10 +38,21 @@ function reducer(
         ...state,
         isPlayers2Turn: !state.isPlayers2Turn,
       };
-    case IS_FINISHED:
+    case IS_FINISHED: {
+      const score = [...state.score];
+
+      score[state.isPlayers2Turn ? 1 : 0] += 1;
+
       return {
         ...state,
         isFinished: true,
+        score,
+      };
+    }
+    case NEXT_MATCH:
+      return {
+        ...INITIAL_STATE,
+        score: state.score,
       };
     case RESTART_GAME:
       return {
