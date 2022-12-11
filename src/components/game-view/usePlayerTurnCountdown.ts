@@ -28,7 +28,7 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
 
   useEffect(() => {
     setCounter(INITIAL_TIME);
-  }, [state.isPlayers2Turn, state.isFinished]);
+  }, [state.isPlayers2Turn, state.movesCount]);
 
   return counter;
 }
