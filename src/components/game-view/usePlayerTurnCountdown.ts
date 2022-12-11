@@ -1,4 +1,5 @@
 import { useGetGameContext } from "context/useGameContext";
+import { useCallback } from "react";
 import { useEffect, useRef, useState } from "react";
 
 const INITIAL_TIME = 30;
@@ -7,6 +8,10 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
   const { state, setNextPlayer } = useGetGameContext();
   const [counter, setCounter] = useState(INITIAL_TIME);
   const timerRef = useRef(0);
+
+  const resetTime = useCallback(() => {
+    setCounter(INITIAL_TIME);
+  }, []);
 
   useEffect(() => {
     if (isPaused) {
@@ -27,8 +32,8 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
   }, [counter, isPaused]);
 
   useEffect(() => {
-    setCounter(INITIAL_TIME);
-  }, [state.isPlayers2Turn, state.movesCount]);
+    resetTime();
+  }, [state.movesCount, resetTime]);
 
-  return counter;
+  return { counter, resetTime };
 }

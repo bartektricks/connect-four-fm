@@ -41,7 +41,7 @@ const GameView = () => {
   useCheckForWin();
   useResetMarkerOpacity(markerRef);
 
-  const timeLeft = usePlayerTurnCountdown(showModal);
+  const { counter, resetTime } = usePlayerTurnCountdown(showModal);
   const setLastMarkerPos = useSetMarkerPos(markerRef);
 
   return (
@@ -62,7 +62,10 @@ const GameView = () => {
         <SmallButton
           to="/game"
           backgroundColor="dark-purple"
-          onClick={setRestartGame}
+          onClick={() => {
+            setRestartGame();
+            resetTime();
+          }}
         >
           Restart
         </SmallButton>
@@ -115,7 +118,7 @@ const GameView = () => {
             onClick={setNextMatch}
           />
         ) : (
-          <Timer isPlayers2Turn={state.isPlayers2Turn} timeLeft={timeLeft} />
+          <Timer isPlayers2Turn={state.isPlayers2Turn} timeLeft={counter} />
         )}
       </div>
     </div>
