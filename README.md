@@ -29,8 +29,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Game](./game.jpg)
-![Game win status](./game-win.jpg)
+![Game](./game.png)
+![Game win status](./game-win.png)
 
 ### Links
 
