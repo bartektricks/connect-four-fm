@@ -2,6 +2,7 @@ import { createPortal } from "react-dom";
 import { useGetGameContext } from "context/useGameContext";
 import MenuBlock from "components/menu-block/MenuBlock";
 import styles from "./GameModal.module.scss";
+import { useEffect } from "react";
 
 type GameModalProps = {
   isOpen: boolean;
@@ -10,6 +11,18 @@ type GameModalProps = {
 
 const GameModal = ({ isOpen, handleSetIsOpen }: GameModalProps) => {
   const { setRestartGame } = useGetGameContext();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("scroll-lock");
+    } else {
+      document.body.classList.remove("scroll-lock");
+    }
+
+    return () => {
+      document.body.classList.remove("scroll-lock");
+    };
+  }, [isOpen]);
 
   return isOpen
     ? createPortal(
