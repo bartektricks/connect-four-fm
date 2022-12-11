@@ -64,6 +64,7 @@
 .board {
   position: absolute;
   inset: 0;
+  display: block;
 }
 
 .boardShadow {
@@ -109,25 +110,23 @@
   position: absolute;
   inset: 0 2.5%;
   display: flex;
-  gap: 2.9%;
   overflow: hidden;
   border-radius: 2rem;
+  gap: 2.5%;
 }
 
 .column {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  flex: 0 1 100%;
-  gap: 1.4%;
-  padding: 0 0 10%;
+  align-items: center;
   background-color: transparent;
+  flex: 0 1 calc(100% / 7);
+  padding: 0 0 10%;
+  margin: 0;
   border: 0;
+  gap: 2.2%;
   cursor: pointer;
-
-  @media (min-width: var.$tablet) {
-    gap: 2.6%;
-  }
 }
 
 .marker {

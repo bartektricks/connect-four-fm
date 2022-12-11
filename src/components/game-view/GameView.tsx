@@ -98,7 +98,10 @@ const GameView = () => {
                 key={columnIndex}
                 type="button"
                 className={styles.column}
-                onClick={() => setToken(columnIndex)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setToken(columnIndex);
+                }}
                 onMouseEnter={(e) => moveMarker(e, markerRef, setLastMarkerPos)}
               >
                 {column.map((player, rowIndex) =>

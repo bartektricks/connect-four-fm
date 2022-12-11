@@ -24,6 +24,7 @@ export default function usePlayerTurnCountdown(isPaused: boolean) {
 
     if (counter <= 0) {
       setNextPlayer();
+      resetTime();
     }
 
     return () => {

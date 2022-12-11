@@ -46,12 +46,12 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
             />
           </filter>
           <path
-            id="b"
+            id="timer-b"
             d="M12.239 34.847 87.279 3.25a20 20 0 0 1 15.454-.029l75.96 31.65A20 20 0 0 1 191 53.333V130c0 11.046-8.954 20-20 20H20c-11.046 0-20-8.954-20-20V53.28a20 20 0 0 1 12.239-18.433Z"
           />
         </defs>
         <g fill="none" fillRule="evenodd" transform="translate(3 2)">
-          <use xlinkHref="#b" fill="#000" filter="url(#a)" />
+          <use xlinkHref="#timer-b" fill="#000" filter="url(#a)" />
           <path
             className={styles.background}
             stroke="#000"
@@ -60,9 +60,7 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
           />
           <foreignObject x="-3" y="41" width="100%" height="100%">
             <div className={styles.inner}>
-              <h2
-                className={typographyStyles.text}
-              >
+              <h2 className={typographyStyles.text}>
                 Player {isPlayers2Turn ? 2 : 1}&apos;s turn
               </h2>
               <h2
