@@ -16,7 +16,7 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 197 165">
         <defs>
           <filter
-            id="a"
+            id="timer-a"
             width="108.4%"
             height="116.2%"
             x="-4.2%"
@@ -51,7 +51,7 @@ const Timer = ({ timeLeft, isPlayers2Turn }: TimerProps) => {
           />
         </defs>
         <g fill="none" fillRule="evenodd" transform="translate(3 2)">
-          <use xlinkHref="#timer-b" fill="#000" filter="url(#a)" />
+          <use xlinkHref="#timer-b" fill="#000" filter="url(#timer-a)" />
           <path
             className={styles.background}
             stroke="#000"
